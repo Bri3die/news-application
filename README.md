@@ -50,6 +50,25 @@ DATABASES = {
 }
 ```
 
+## Running with Docker
+
+### Requirements
+- Docker Desktop installed
+
+### Setup
+
+1. Pull the image:
+```bash
+docker pull yourusername/news-application:latest
+```
+
+2. Run the container:
+```bash
+docker run -p 8000:8000 yourusername/news-application:latest
+```
+
+3. Open your browser at `http://localhost:8000`
+
 ### 4. Run Migrations
 
 ```bash
@@ -88,3 +107,8 @@ python manage.py test news
 - **Reader**: View articles, subscribe to publishers/journalists
 - **Editor**: Approve/delete articles, access editor dashboard
 - **Journalist**: Create/edit/delete own articles and newsletters
+
+
+## Documentation
+
+Sphinx documentation is available in the `docs/` folder. To view it, open `docs/_build/html/index.html` in your browser.
