@@ -1,0 +1,42 @@
+{% extends 'news/base.html' %}
+
+{% block title %}Edit Newsletter - News App{% endblock %}
+
+{% block content %}
+<h1>Edit Newsletter</h1>
+
+<div class="form-container" style="max-width: 600px;">
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="title">Newsletter Title:</label>
+            <input type="text" id="title" name="title" value="{{ newsletter.title }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="3">{{ newsletter.description }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Select Articles to Include:</label>
+            {% if my_articles %}
+                <div class="checkbox-list">
+                    {% for article in my_articles %}
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="articles" value="{{ article.id }}" {% if article in newsletter.articles.all %}checked{% endif %}>
+                        {{ article.title }}
+                    </label>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No approved articles available.</p>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-success">Save Changes</button>
+        <a href="{% url 'journalist_dashboard' %}" class="btn">Cancel</a>
+    </form>
+</div>
+{% endblock %}

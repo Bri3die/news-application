@@ -1,0 +1,26 @@
+{% extends 'news/base.html' %}
+
+{% block title %}Preview: {{ article.title }} - News App{% endblock %}
+
+{% block content %}
+<div class="article-card">
+    <span class="status-pending">PENDING APPROVAL</span>
+    <h1>{{ article.title }}</h1>
+    <p class="meta">
+        By {{ article.author.username }} |
+        {{ article.created_at|date:"F d, Y" }}
+        {% if article.publisher %}
+            | {{ article.publisher.name }}
+        {% endif %}
+    </p>
+
+    <div class="article-content">
+        {{ article.content|linebreaks }}
+    </div>
+
+    <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ddd;">
+        <a href="{% url 'approve_article' article.pk %}" class="btn btn-success">Approve</a>
+        <a href="{% url 'editor_dashboard' %}" class="btn">← Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'news/base.html' %}
+
+{% block title %}Register - News App{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1>Register</h1>
+
+    {% if form.errors %}
+    <div class="alert alert-danger">
+        <p>Please correct the errors below.</p>
+    </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="id_username">Username:</label>
+            {{ form.username }}
+            {% if form.username.errors %}
+                <small class="error-text">{{ form.username.errors.0 }}</small>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="id_email">Email:</label>
+            {{ form.email }}
+            {% if form.email.errors %}
+                <small class="error-text">{{ form.email.errors.0 }}</small>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="id_role">Role:</label>
+            {{ form.role }}
+            {% if form.role.errors %}
+                <small class="error-text">{{ form.role.errors.0 }}</small>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="id_password1">Password:</label>
+            {{ form.password1 }}
+            {% if form.password1.errors %}
+                <small class="error-text">{{ form.password1.errors.0 }}</small>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="id_password2">Confirm Password:</label>
+            {{ form.password2 }}
+            {% if form.password2.errors %}
+                <small class="error-text">{{ form.password2.errors.0 }}</small>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn">Register</button>
+    </form>
+
+    <p style="margin-top: 1rem;">
+        Already have an account? <a href="{% url 'login' %}">Login here</a>
+    </p>
+</div>
+{% endblock %}

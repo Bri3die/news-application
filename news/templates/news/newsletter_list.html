@@ -1,0 +1,21 @@
+{% extends 'news/base.html' %}
+
+{% block title %}Newsletters - News App{% endblock %}
+
+{% block content %}
+<h1>Newsletters</h1>
+
+{% if newsletters %}
+    {% for newsletter in newsletters %}
+    <div class="article-card">
+        <h2><a href="{% url 'newsletter_detail' newsletter.pk %}">{{ newsletter.title }}</a></h2>
+        <p class="meta">
+            By {{ newsletter.author.username }} | {{ newsletter.created_at|date:"F d, Y" }} | {{ newsletter.articles.count }} articles
+        </p>
+        <p>{{ newsletter.description|truncatewords:30 }}</p>
+    </div>
+    {% endfor %}
+{% else %}
+    <p>No newsletters available yet.</p>
+{% endif %}
+{% endblock %}

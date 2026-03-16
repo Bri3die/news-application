@@ -1,0 +1,54 @@
+{% extends 'news/base.html' %}
+
+{% block title %}My Subscriptions - News App{% endblock %}
+
+{% block content %}
+<h1>My Subscriptions</h1>
+<p>Subscribe to publishers and journalists to get notified when they publish new articles.</p>
+
+<div class="dashboard-section">
+    <h2>Publishers</h2>
+    {% if publishers %}
+        <div class="subscription-grid">
+            {% for publisher in publishers %}
+            <div class="subscription-card">
+                <h3>{{ publisher.name }}</h3>
+                <p>{{ publisher.description|truncatewords:15 }}</p>
+                <a href="{% url 'toggle_publisher_subscription' publisher.pk %}" class="btn {% if publisher in my_subscribed_publishers %}btn-danger{% else %}btn-success{% endif %}">
+                    {% if publisher in my_subscribed_publishers %}
+                        Unsubscribe
+                    {% else %}
+                        Subscribe
+                    {% endif %}
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No publishers available yet.</p>
+    {% endif %}
+</div>
+
+<div class="dashboard-section">
+    <h2>Journalists</h2>
+    {% if journalists %}
+        <div class="subscription-grid">
+            {% for journalist in journalists %}
+            <div class="subscription-card">
+                <h3>{{ journalist.username }}</h3>
+                <p>{{ journalist.articles.count }} articles published</p>
+                <a href="{% url 'toggle_journalist_subscription' journalist.pk %}" class="btn {% if journalist in my_subscribed_journalists %}btn-danger{% else %}btn-success{% endif %}">
+                    {% if journalist in my_subscribed_journalists %}
+                        Unsubscribe
+                    {% else %}
+                        Subscribe
+                    {% endif %}
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No journalists available yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

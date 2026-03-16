@@ -1,0 +1,35 @@
+{% extends 'news/base.html' %}
+
+{% block title %}Login - News App{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1>Login</h1>
+
+    {% if form.errors %}
+    <div class="alert alert-danger">
+        <p>Invalid username or password.</p>
+    </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="id_username">Username:</label>
+            {{ form.username }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_password">Password:</label>
+            {{ form.password }}
+        </div>
+
+        <button type="submit" class="btn">Login</button>
+    </form>
+
+    <p style="margin-top: 1rem;">
+        Don't have an account? <a href="{% url 'register' %}">Register here</a>
+    </p>
+</div>
+{% endblock %}

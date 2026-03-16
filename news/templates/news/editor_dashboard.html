@@ -1,0 +1,33 @@
+{% extends 'news/base.html' %}
+
+{% block title %}Editor Dashboard - News App{% endblock %}
+
+{% block content %}
+<h1>Editor Dashboard</h1>
+<p>Review and approve articles submitted by journalists.</p>
+
+{% if pending_articles %}
+    <h2>Pending Approval ({{ pending_articles.count }})</h2>
+
+    {% for article in pending_articles %}
+    <div class="article-card">
+        <h3>{{ article.title }}</h3>
+        <p class="meta">
+            By {{ article.author.username }} |
+            {{ article.created_at|date:"F d, Y" }}
+            {% if article.publisher %}
+                | {{ article.publisher.name }}
+            {% endif %}
+        </p>
+        <p>{{ article.content|truncatewords:30 }}</p>
+
+        <div class="article-actions">
+            <a href="{% url 'approve_article' article.pk %}" class="btn btn-success">Approve</a>
+            <a href="{% url 'editor_preview_article' article.pk %}" class="btn">View Full</a>
+        </div>
+    </div>
+    {% endfor %}
+{% else %}
+    <p>No articles pending approval.</p>
+{% endif %}
+{% endblock %}

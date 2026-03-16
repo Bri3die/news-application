@@ -1,0 +1,33 @@
+{% extends 'news/base.html' %}
+
+{% block title %}{{ newsletter.title }} - News App{% endblock %}
+
+{% block content %}
+<div class="article-card">
+    <h1>{{ newsletter.title }}</h1>
+    <p class="meta">
+        By {{ newsletter.author.username }} | {{ newsletter.created_at|date:"F d, Y" }}
+    </p>
+    <p>{{ newsletter.description }}</p>
+</div>
+
+<h2>Articles in this Newsletter</h2>
+
+{% if newsletter.articles.all %}
+    {% for article in newsletter.articles.all %}
+    <div class="article-card">
+        <h3><a href="{% url 'article_detail' article.pk %}">{{ article.title }}</a></h3>
+        <p class="meta">
+            By {{ article.author.username }} | {{ article.created_at|date:"F d, Y" }}
+        </p>
+        <p>{{ article.content|truncatewords:30 }}</p>
+    </div>
+    {% endfor %}
+{% else %}
+    <p>No articles in this newsletter yet.</p>
+{% endif %}
+
+<p style="margin-top: 2rem;">
+    <a href="{% url 'newsletter_list' %}" class="btn">← Back to Newsletters</a>
+</p>
+{% endblock %}
