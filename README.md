@@ -13,75 +13,77 @@ A Django-based news platform with role-based access control, built as a capstone
 
 ## Setup
 
-### 1. Create Virtual Environment
-
-```bash
-python -m venv .venv
-source .venv/bin/activate  # Mac/Linux
-# or
-.venv\Scripts\activate  # Windows
-```
-
-### 2. Install Dependencies
-
-```bash
-pip install django djangorestframework mysqlclient
-```
-
-### 3. Database Setup
-
-The project uses MariaDB. Create the database:
-
-```sql
-CREATE DATABASE news_app;
-CREATE USER 'news_user'@'localhost' IDENTIFIED BY 'news_password';
-GRANT ALL PRIVILEGES ON news_app.* TO 'news_user'@'localhost';
-FLUSH PRIVILEGES;
-```
-
-Or switch to SQLite in `settings.py`:
-
-```python
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-```
-
-## Running with Docker
+## Option 1: Running with Virtual Environment
 
 ### Requirements
-- Docker Desktop installed
+- Python 3.12
+- MySQL
+
+### Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/Bri3die/news-application.git
+cd news_application
+```
+
+2. Create and activate a virtual environment:
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+3. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+4. Create a `.env` file in the project root and add your database settings:
+```
+SECRET_KEY=your-secret-key
+DATABASE_NAME=your-db-name
+DATABASE_USER=your-db-user
+DATABASE_PASSWORD=your-db-password
+DATABASE_HOST=localhost
+DATABASE_PORT=3306
+```
+
+5. Run migrations:
+```bash
+python manage.py migrate
+```
+
+6. Start the server:
+```bash
+python manage.py runserver
+```
+
+7. Open your browser at `http://localhost:8000`
+
+---
+
+## Option 2: Running with Docker
+
+### Requirements
+- Docker Desktop
 
 ### Setup
 
 1. Pull the image:
 ```bash
-docker pull yourusername/news-application:latest
+docker pull bri3die/news-application:latest
 ```
 
 2. Run the container:
 ```bash
-docker run -p 8000:8000 yourusername/news-application:latest
+docker run -p 8000:8000 bri3die/news-application:latest
 ```
 
 3. Open your browser at `http://localhost:8000`
 
-### 4. Run Migrations
+The Docker container uses SQLite by default so no database setup is required.
 
-```bash
-python manage.py migrate
-python manage.py createsuperuser
-python manage.py setup_groups
-```
-
-### 5. Run the Server
-
-```bash
-python manage.py runserver
-```
+---
 
 Visit http://127.0.0.1:8000
 
@@ -111,4 +113,4 @@ python manage.py test news
 
 ## Documentation
 
-Sphinx documentation is available in the `docs/` folder. To view it, open `docs/_build/html/index.html` in your browser.
+Sphinx documentation is available in the `docs/` folder. To view it, open `docs/_build/html/index.html` in your browser
