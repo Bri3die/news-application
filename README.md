@@ -82,7 +82,8 @@ docker-compose up
 
 3. Open your browser at `http://localhost:8000`
 
-The Docker container uses SQLite by default so no database setup is required.
+Docker Compose will automatically start both the Django application and a MariaDB database container. 
+No additional database setup is required.
 
 ---
 
