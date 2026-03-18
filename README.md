@@ -69,14 +69,15 @@ python manage.py runserver
 
 ### Setup
 
-1. Pull the image:
+1. Clone the repository:
 ```bash
-docker pull bri3die/news-application:latest
+git clone https://github.com/Bri3die/news-application.git
+cd news_application
 ```
 
-2. Run the container:
+2. Start the application with Docker Compose:
 ```bash
-docker run -p 8000:8000 bri3die/news-application:latest
+docker-compose up
 ```
 
 3. Open your browser at `http://localhost:8000`

@@ -1,0 +1,26 @@
+services:
+  db:
+    image: mariadb:10.11
+    restart: always
+    environment:
+      MYSQL_DATABASE: news_db
+      MYSQL_USER: news_user
+      MYSQL_PASSWORD: news_password
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "3306:3306"
+
+  web:
+    image: bri3die/news-application:latest
+    restart: always
+    environment:
+      USE_SQLITE: ""
+      DB_NAME: news_db
+      DB_USER: news_user
+      DB_PASSWORD: news_password
+      DB_HOST: db
+      DB_PORT: 3306
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
